@@ -33,41 +33,41 @@ const { LanguageCode } = require("speakmaster-module-builder");
 const { ModuleFeaturesBuilder, Feature, Parameter, ParameterValue } = require("speakmaster-module-builder/features-builder");
 
 new ModuleFeaturesBuilder()
-	.addFeature(
-		new Feature("moveMouse", LanguageCode.EN_US)
-			.addTranslation("Move Mouse", "Moves the mouse in the given direction", [LanguageCode.EN_US, LanguageCode.EN_GB])
-			.addTranslation("Mover o Mouse", "Move o mouse na direção informada", [LanguageCode.PT_BR, LanguageCode.PT_PT])
-			.addParameter(
-				new Parameter("direction")
-					.addTranslation("Direction", "Direction to move mouse", [LanguageCode.EN_US, LanguageCode.EN_GB])
-					.addTranslation("Direção", "Direção na qual o mouse irá mover", [LanguageCode.PT_BR, LanguageCode.PT_PT])
-					.addAllowedValue(
-						new ParameterValue("UP")
-							.addTranslation("Up", "Move mouse upwards", [LanguageCode.EN_US, LanguageCode.EN_GB])
-							.addTranslation("Pra Cima", "Move o mouse pra cima", [LanguageCode.PT_BR, LanguageCode.PT_PT]),
-						new ParameterValue("DOWN")
-							.addTranslation("Down", "Move mouse downwards", [LanguageCode.EN_US, LanguageCode.EN_GB])
-							.addTranslation("Pra Baixo", "Move o mouse pra baixo", [LanguageCode.PT_BR, LanguageCode.PT_PT]),
-						new ParameterValue("LEFT")
-							.addTranslation("Left", "Move mouse leftwards", [LanguageCode.EN_US, LanguageCode.EN_GB])
-							.addTranslation("Esquerda", "Move o mouse esquerda", [LanguageCode.PT_BR, LanguageCode.PT_PT]),
-						new ParameterValue("RIGHT")
-							.addTranslation("Right", "Move mouse rightwards", [LanguageCode.EN_US, LanguageCode.EN_GB])
-							.addTranslation("Direita", "Move o mouse direita", [LanguageCode.PT_BR, LanguageCode.PT_PT])
-					)
-			)
-	)
-	.generateJSON();
+  .addFeature(
+    new Feature("moveMouse", LanguageCode.EN_US)
+      .addTranslation("Move Mouse", "Moves the mouse in the given direction", [LanguageCode.EN_US, LanguageCode.EN_GB])
+      .addTranslation("Mover o Mouse", "Move o mouse na direção informada", [LanguageCode.PT_BR, LanguageCode.PT_PT])
+      .addParameter(
+        new Parameter("direction")
+          .addTranslation("Direction", "Direction to move mouse", [LanguageCode.EN_US, LanguageCode.EN_GB])
+          .addTranslation("Direção", "Direção na qual o mouse irá mover", [LanguageCode.PT_BR, LanguageCode.PT_PT])
+          .addAllowedValue(
+            new ParameterValue("UP")
+              .addTranslation("Up", "Move mouse upwards", [LanguageCode.EN_US, LanguageCode.EN_GB])
+              .addTranslation("Pra Cima", "Move o mouse pra cima", [LanguageCode.PT_BR, LanguageCode.PT_PT]),
+            new ParameterValue("DOWN")
+              .addTranslation("Down", "Move mouse downwards", [LanguageCode.EN_US, LanguageCode.EN_GB])
+              .addTranslation("Pra Baixo", "Move o mouse pra baixo", [LanguageCode.PT_BR, LanguageCode.PT_PT]),
+            new ParameterValue("LEFT")
+              .addTranslation("Left", "Move mouse leftwards", [LanguageCode.EN_US, LanguageCode.EN_GB])
+              .addTranslation("Esquerda", "Move o mouse esquerda", [LanguageCode.PT_BR, LanguageCode.PT_PT]),
+            new ParameterValue("RIGHT")
+              .addTranslation("Right", "Move mouse rightwards", [LanguageCode.EN_US, LanguageCode.EN_GB])
+              .addTranslation("Direita", "Move o mouse direita", [LanguageCode.PT_BR, LanguageCode.PT_PT])
+          )
+      )
+  )
+  .generateJSON();
 ```
 
 Com base na funcionalidade definida acima, caso o usuário executasse um comando associado a ela, a Central de Comandos do SpeakMaster enviaria, por exemplo, os seguintes dados para o módulo:
 
 ```json
 {
-	"event": "COMMAND",
-	"featureIdentifier": "moveMouse",
-	"parameters": { "direction": "RIGHT" },
-	"sentAt": 1712476663131
+  "event": "COMMAND",
+  "featureIdentifier": "moveMouse",
+  "parameters": { "direction": "RIGHT" },
+  "sentAt": 1712476663131
 }
 ```
 
@@ -89,11 +89,11 @@ Para criar instâncias da classe `Command` passe os seguintes parâmetros:
 
 3. Opcionalmente, o parâmetro ou lista de parâmetros aceitos pela funcionalidade como instâncias da classe `CommandParameter`. Ao criar instâncias dessa classe, passe o `identifier` do parâmetro que será utilizado como a chave do objeto JSON que identifica o parâmetro nos dados recebidos do SpeakMaster para a execução da funcionalidade. Em seguida, chame uma das seguintes funções para definir o tipo do parâmetro:
 
-	- `useConstant`: utiliza um valor fixo para o parâmetro. Passe uma `string` com o valor desejado para esta função.
+  - `useConstant`: utiliza um valor fixo para o parâmetro. Passe uma `string` com o valor desejado para esta função.
 
-	- `useVariable`: utiliza uma variável usada na definição do comando para receber um valor dinâmico para este parâmetro, isto é, qualquer `string` reconhecida pelo comando e associado a variável será passada para este parâmetro. Passe o nome da variável para esta função.
+  - `useVariable`: utiliza uma variável usada na definição do comando para receber um valor dinâmico para este parâmetro, isto é, qualquer `string` reconhecida pelo comando e associado a variável será passada para este parâmetro. Passe o nome da variável para esta função.
 
-	- `useRestrictedVariable`: mapeia os valores aceitos pelo parâmetro aos valores reconhecidos por uma variável usada na definição do comando. Passe para esta função o nome da variável e, em seguida, o vetor de valores aceitos fazendo a associação direta com os itens reconhecidos pela variável da definição do comando.
+  - `useRestrictedVariable`: mapeia os valores aceitos pelo parâmetro aos valores reconhecidos por uma variável usada na definição do comando. Passe para esta função o nome da variável e, em seguida, o vetor de valores aceitos fazendo a associação direta com os itens reconhecidos pela variável da definição do comando.
 
 #### **Exemplo:**
 
@@ -102,23 +102,23 @@ const { LanguageCode } = require("speakmaster-module-builder");
 const { DefaultCommandsBuilder, Command, CommandParameter } = require("speakmaster-module-builder/default-commands-builder");
 
 new DefaultCommandsBuilder()
-	.addCommand(
-		[LanguageCode.EN_US, LanguageCode.EN_GB],
-		new Command(
-			"move mouse {DIRECTION (up, down, left, right)}",
-			"moveMouse",
-			new CommandParameter("direction").useRestrictedVariable("DIRECTION", ["UP", "DOWN", "LEFT", "RIGHT"])
-		)
-	)
-	.addCommand(
-		[LanguageCode.PT_BR, LanguageCode.PT_PT],
-		new Command(
-			"mover [o] mouse [(para, pra)] {DIREÇÃO (cima, baixo, esquerda, direita)}",
-			"moveMouse",
-			new CommandParameter("direction").useRestrictedVariable("DIREÇÃO", ["UP", "DOWN", "LEFT", "RIGHT"])
-		)
-	)
-	.generateJSON();
+  .addCommand(
+    [LanguageCode.EN_US, LanguageCode.EN_GB],
+    new Command(
+      "move mouse {DIRECTION (up, down, left, right)}",
+      "moveMouse",
+      new CommandParameter("direction").useRestrictedVariable("DIRECTION", ["UP", "DOWN", "LEFT", "RIGHT"])
+    )
+  )
+  .addCommand(
+    [LanguageCode.PT_BR, LanguageCode.PT_PT],
+    new Command(
+      "mover [o] mouse [(para, pra)] {DIREÇÃO (cima, baixo, esquerda, direita)}",
+      "moveMouse",
+      new CommandParameter("direction").useRestrictedVariable("DIREÇÃO", ["UP", "DOWN", "LEFT", "RIGHT"])
+    )
+  )
+  .generateJSON();
 ```
 
 Com base no comando em português definido acima, o parâmetro `direction` da funcionalidade associada ao identificador `moveMouse` receberá o valor:
@@ -132,9 +132,9 @@ Ou seja, se o usuário disser `mover mouse pra baixo`, a Central de Comandos do 
 
 ```json
 {
-	"event": "COMMAND",
-	"featureIdentifier": "moveMouse",
-	"parameters": { "direction": "DOWN" },
-	"sentAt": 1712518896706
+  "event": "COMMAND",
+  "featureIdentifier": "moveMouse",
+  "parameters": { "direction": "DOWN" },
+  "sentAt": 1712518896706
 }
 ```
