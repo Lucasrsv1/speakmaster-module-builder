@@ -1,0 +1,29 @@
+{
+	"name": "speakmaster-module-builder",
+	"version": "0.0.1",
+	"description": "Ferramenta de definição das configurações de módulos do SpeakMaster, como preferências, funcionalidades disponíveis e comandos padrões",
+	"main": "./dist/index.js",
+	"module": "./dist/index.mjs",
+	"types": "./dist/index.d.ts",
+	"files": ["dist"],
+	"scripts": {
+		"build": "tsup",
+		"lint": "eslint . --ext .ts",
+		"lint-fix": "eslint . --ext .ts --fix"
+	},
+	"author": "Lucas Rassilan Vilanova",
+	"repository": {
+		"url": "https://github.com/Lucasrsv1/speakmaster-module-builder"
+	},
+	"license": "ISC",
+	"keywords": ["speakmaster", "speakmaster-module"],
+	"devDependencies": {
+		"@typescript-eslint/eslint-plugin": "^7.1.1",
+		"@typescript-eslint/parser": "^7.1.1",
+		"eslint": "^8.57.0",
+		"eslint-plugin-only-warn": "^1.1.0",
+		"ts-node": "^10.9.2",
+		"tsup": "^8.0.2",
+		"typescript": "^5.4.2"
+	}
+}
