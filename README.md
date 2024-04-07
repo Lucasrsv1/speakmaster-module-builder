@@ -89,11 +89,11 @@ Para criar instâncias da classe `Command` passe os seguintes parâmetros:
 
 3. Opcionalmente, o parâmetro ou lista de parâmetros aceitos pela funcionalidade como instâncias da classe `CommandParameter`. Ao criar instâncias dessa classe, passe o `identifier` do parâmetro que será utilizado como a chave do objeto JSON que identifica o parâmetro nos dados recebidos do SpeakMaster para a execução da funcionalidade. Em seguida, chame uma das seguintes funções para definir o tipo do parâmetro:
 
-  - `useConstant`: utiliza um valor fixo para o parâmetro. Passe uma `string` com o valor desejado para esta função.
+	- `useConstant`: utiliza um valor fixo para o parâmetro. Passe uma `string` com o valor desejado para esta função.
 
-  - `useVariable`: utiliza uma variável usada na definição do comando para receber um valor dinâmico para este parâmetro, isto é, qualquer `string` reconhecida pelo comando e associado a variável será passada para este parâmetro. Passe o nome da variável para esta função.
+	- `useVariable`: utiliza uma variável usada na definição do comando para receber um valor dinâmico para este parâmetro, isto é, qualquer `string` reconhecida pelo comando e associado a variável será passada para este parâmetro. Passe o nome da variável para esta função.
 
-  - `useRestrictedVariable`: mapeia os valores aceitos pelo parâmetro aos valores reconhecidos por uma variável usada na definição do comando. Passe para esta função o nome da variável e, em seguida, o vetor de valores aceitos fazendo a associação direta com os itens reconhecidos pela variável da definição do comando.
+	- `useRestrictedVariable`: mapeia os valores aceitos pelo parâmetro aos valores reconhecidos por uma variável usada na definição do comando. Passe para esta função o nome da variável e, em seguida, o vetor de valores aceitos fazendo a associação direta com os itens reconhecidos pela variável da definição do comando.
 
 #### **Exemplo:**
 
