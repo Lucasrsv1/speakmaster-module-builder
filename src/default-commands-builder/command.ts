@@ -44,13 +44,13 @@ export class CommandParameter {
 
 export class Command {
 	public command: string;
-	public featureKey: string;
+	public featureIdentifier: string;
 
 	public parameters?: CommandParameter[];
 
-	constructor (command: string, featureKey: string, parameters: CommandParameter | CommandParameter[] | undefined = undefined) {
+	constructor (command: string, featureIdentifier: string, parameters: CommandParameter | CommandParameter[] | undefined = undefined) {
 		this.command = command;
-		this.featureKey = featureKey;
+		this.featureIdentifier = featureIdentifier;
 
 		if (parameters && !Array.isArray(parameters))
 			this.parameters = [parameters];
