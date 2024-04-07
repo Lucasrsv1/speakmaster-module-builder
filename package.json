@@ -1,11 +1,12 @@
 {
 	"name": "speakmaster-module-builder",
-	"version": "0.0.1",
+	"version": "0.1.0",
 	"description": "Ferramenta de definição das configurações de módulos do SpeakMaster, como preferências, funcionalidades disponíveis e comandos padrões",
 	"main": "./dist/index.js",
 	"module": "./dist/index.mjs",
 	"types": "./dist/index.d.ts",
 	"files": ["dist"],
+	"preferDev": true,
 	"scripts": {
 		"build": "tsup",
 		"lint": "eslint . --ext .ts",

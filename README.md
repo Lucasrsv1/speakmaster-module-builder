@@ -8,6 +8,14 @@ Durante o processo de criação de um novo módulo para fornecer novas funcional
 
 3. **sm-module-default-commands.json:** este é o **arquivo opcional** que descreve os comandos padrões do módulo para facilitar para o usuário final utilizar suas funcionalidades. A partir deste arquivo os usuários finais podem executar comandos do módulo sem terem que configurá-los manualmente. Este arquivo inclui definições de comandos em múltiplos idiomas que acionam as funcionalidades implementadas no módulo. Embora seja opcional, é fortemente recomendado que o desenvolvedor crie comandos padrões para ao menos servirem de referência para os usuários.
 
+## Instalação
+
+```sh
+npm i -D speakmaster-module-builder
+```
+
+Como este módulo é utilizado apenas para a geração dos arquivos JSON necessários para publicação de um módulo no SpeakMaster, ele não precisa estar presente no produto final do módulo que será distribuído para os usuários. Sendo assim, o instale como uma dependência de desenvolvimento (em `devDependencies`).
+
 ## Como Usar
 
 Este pacote pode ser usado para gerar os arquivos JSON listados acima, veja abaixo como usá-lo para gerar cada arquivo.
