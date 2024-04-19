@@ -1,6 +1,6 @@
 {
 	"name": "speakmaster-module-builder",
-	"version": "0.1.3",
+	"version": "0.2.0",
 	"description": "Ferramenta de definição das configurações de módulos do SpeakMaster, como preferências, funcionalidades disponíveis e comandos padrões",
 	"main": "./dist/index.js",
 	"module": "./dist/index.mjs",

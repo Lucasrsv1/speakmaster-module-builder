@@ -9,11 +9,18 @@ export type ParameterTranslation = Partial<
 
 export class Parameter {
 	public identifier: string;
+	public optional: boolean;
 	public allowedValues: ParameterValue[] = [];
 	public translations: ParameterTranslation = {};
 
-	constructor (identifier: string, allowedValues: ParameterValue[] = [], translations: ParameterTranslation = {}) {
+	constructor (
+		identifier: string,
+		optional: boolean = false,
+		allowedValues: ParameterValue[] = [],
+		translations: ParameterTranslation = {}
+	) {
 		this.identifier = identifier;
+		this.optional = optional;
 		this.allowedValues = allowedValues || [];
 		this.translations = translations || {};
 	}
