@@ -1,6 +1,6 @@
 {
 	"name": "speakmaster-module-builder",
-	"version": "0.1.2",
+	"version": "0.1.3",
 	"description": "Ferramenta de definição das configurações de módulos do SpeakMaster, como preferências, funcionalidades disponíveis e comandos padrões",
 	"main": "./dist/index.js",
 	"module": "./dist/index.mjs",
@@ -17,7 +17,12 @@
 		"url": "https://github.com/Lucasrsv1/speakmaster-module-builder"
 	},
 	"license": "ISC",
-	"keywords": ["speakmaster", "speakmaster-module"],
+	"keywords": [
+		"speakmaster",
+		"speakmaster module",
+		"speakmaster features",
+		"speakmaster default languages"
+	],
 	"devDependencies": {
 		"@typescript-eslint/eslint-plugin": "^7.1.1",
 		"@typescript-eslint/parser": "^7.1.1",

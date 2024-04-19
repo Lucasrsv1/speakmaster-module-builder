@@ -8,13 +8,15 @@ export enum CommandParameterTypes {
 export class CommandParameter {
 	public identifier: string;
 	public type: CommandParameterTypes;
+	public optional: boolean;
 
 	public value?: string;
 	public variableName?: string;
 	public variableValues?: string[];
 
-	constructor (identifier: string) {
+	constructor (identifier: string, optional: boolean = false) {
 		this.identifier = identifier;
+		this.optional = optional;
 
 		this.type = CommandParameterTypes.UNDEFINED;
 		this.value = undefined;
