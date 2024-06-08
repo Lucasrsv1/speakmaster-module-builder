@@ -2,9 +2,10 @@ import { writeFileSync } from "fs";
 
 import { Feature } from "./feature";
 
-export { Feature, FeatureTranslation } from "./feature";
-export { Parameter, ParameterTranslation } from "./parameter";
-export { ParameterValue, ParameterValueTranslation } from "./parameter-value";
+export { Feature } from "./feature";
+export { Parameter } from "./parameter";
+export { ParameterValue } from "./parameter-value";
+export { Translations } from "./translations";
 
 export class ModuleFeaturesBuilder {
 	public features: Feature[];

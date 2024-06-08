@@ -1,19 +1,14 @@
 import { LanguageCode } from "../languages";
 import { Parameter } from "./parameter";
-
-export type FeatureTranslation = Partial<
-	Record<
-		LanguageCode, { name: string; description: string; }
-	>
->;
+import { Translations } from "./translations";
 
 export class Feature {
 	public identifier: string;
 	public defaultLanguage: LanguageCode;
 	public parameters: Parameter[] = [];
-	public translations: FeatureTranslation = {};
+	public translations: Translations = {};
 
-	constructor (identifier: string, defaultLanguage: LanguageCode, parameters: Parameter[] = [], translations: FeatureTranslation = {}) {
+	constructor (identifier: string, defaultLanguage: LanguageCode, parameters: Parameter[] = [], translations: Translations = {}) {
 		this.identifier = identifier;
 		this.defaultLanguage = defaultLanguage;
 		this.parameters = parameters || [];

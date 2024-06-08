@@ -1,23 +1,18 @@
 import { LanguageCode } from "../languages";
 import { ParameterValue } from "./parameter-value";
-
-export type ParameterTranslation = Partial<
-	Record<
-		LanguageCode, { name: string; description: string; }
-	>
->;
+import { Translations } from "./translations";
 
 export class Parameter {
 	public identifier: string;
 	public optional: boolean;
 	public allowedValues: ParameterValue[] = [];
-	public translations: ParameterTranslation = {};
+	public translations: Translations = {};
 
 	constructor (
 		identifier: string,
 		optional: boolean = false,
 		allowedValues: ParameterValue[] = [],
-		translations: ParameterTranslation = {}
+		translations: Translations = {}
 	) {
 		this.identifier = identifier;
 		this.optional = optional;
