@@ -6,14 +6,13 @@ export enum CommandParameterTypes {
 }
 
 export class CommandParameter {
-	public identifier: string;
 	public type: CommandParameterTypes;
 
 	public value?: string;
 	public variableName?: string;
 	public variableValues?: string[];
 
-	constructor (identifier: string) {
+	constructor (public identifier: string) {
 		this.identifier = identifier;
 
 		this.type = CommandParameterTypes.UNDEFINED;
@@ -43,12 +42,13 @@ export class CommandParameter {
 }
 
 export class Command {
-	public command: string;
-	public featureIdentifier: string;
-
 	public parameters?: CommandParameter[];
 
-	constructor (command: string, featureIdentifier: string, parameters: CommandParameter | CommandParameter[] | undefined = undefined) {
+	constructor (
+		public command: string,
+		public featureIdentifier: string,
+		parameters: CommandParameter | CommandParameter[] | undefined = undefined
+	) {
 		this.command = command;
 		this.featureIdentifier = featureIdentifier;
 

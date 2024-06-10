@@ -3,17 +3,12 @@ import { Parameter } from "./parameter";
 import { Translations } from "./translations";
 
 export class Feature {
-	public identifier: string;
-	public defaultLanguage: LanguageCode;
-	public parameters: Parameter[] = [];
-	public translations: Translations = {};
-
-	constructor (identifier: string, defaultLanguage: LanguageCode, parameters: Parameter[] = [], translations: Translations = {}) {
-		this.identifier = identifier;
-		this.defaultLanguage = defaultLanguage;
-		this.parameters = parameters || [];
-		this.translations = translations || {};
-	}
+	constructor (
+		public identifier: string,
+		public defaultLanguage: LanguageCode,
+		public parameters: Parameter[] = [],
+		public translations: Translations = {}
+	) { }
 
 	public addTranslation (name: string, description: string, languageCodes: LanguageCode[]): Feature {
 		for (const languageCode of languageCodes)

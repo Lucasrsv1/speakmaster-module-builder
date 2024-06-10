@@ -3,22 +3,13 @@ import { ParameterValue } from "./parameter-value";
 import { Translations } from "./translations";
 
 export class Parameter {
-	public identifier: string;
-	public optional: boolean;
-	public allowedValues: ParameterValue[] = [];
-	public translations: Translations = {};
-
 	constructor (
-		identifier: string,
-		optional: boolean = false,
-		allowedValues: ParameterValue[] = [],
-		translations: Translations = {}
-	) {
-		this.identifier = identifier;
-		this.optional = optional;
-		this.allowedValues = allowedValues || [];
-		this.translations = translations || {};
-	}
+		public identifier: string,
+		public optional: boolean = false,
+		public autoSort: boolean = false,
+		public allowedValues: ParameterValue[] = [],
+		public translations: Translations = {}
+	) { }
 
 	public addTranslation (name: string, description: string, languageCodes: LanguageCode[]): Parameter {
 		for (const languageCode of languageCodes)

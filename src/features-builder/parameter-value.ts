@@ -2,13 +2,10 @@ import { LanguageCode } from "../languages";
 import { Translations } from "./translations";
 
 export class ParameterValue {
-	public identifier: string;
-	public translations: Translations = {};
-
-	constructor (identifier: string, translations: Translations) {
-		this.identifier = identifier;
-		this.translations = translations || {};
-	}
+	constructor (
+		public identifier: string,
+		public translations: Translations = {}
+	) { }
 
 	public addTranslation (name: string, description: string, languageCodes: LanguageCode[]): ParameterValue {
 		for (const languageCode of languageCodes)
