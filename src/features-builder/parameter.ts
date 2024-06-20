@@ -11,7 +11,7 @@ export class Parameter {
 		public translations: Translations = {}
 	) { }
 
-	public addTranslation (name: string, description: string, languageCodes: LanguageCode[]): Parameter {
+	public addTranslation (name: string, description: string | null, languageCodes: LanguageCode[]): Parameter {
 		for (const languageCode of languageCodes)
 			this.translations[languageCode] = { name, description };
 

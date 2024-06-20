@@ -10,7 +10,7 @@ export class Feature {
 		public translations: Translations = {}
 	) { }
 
-	public addTranslation (name: string, description: string, languageCodes: LanguageCode[]): Feature {
+	public addTranslation (name: string, description: string | null, languageCodes: LanguageCode[]): Feature {
 		for (const languageCode of languageCodes)
 			this.translations[languageCode] = { name, description };
 

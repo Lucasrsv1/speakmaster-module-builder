@@ -139,8 +139,9 @@
 				"plugin:@typescript-eslint/recommended"
 			],
 			"rules": {
+				"default-param-last": "off",
+    			"@typescript-eslint/default-param-last": "warn",
 				"@typescript-eslint/no-empty-function": "off",
-				"@typescript-eslint/no-explicit-any": "off",
 				"@typescript-eslint/no-unused-vars": "off"
 			}
 		}
