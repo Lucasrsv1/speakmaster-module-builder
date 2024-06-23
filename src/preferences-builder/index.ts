@@ -1,23 +1,70 @@
 import { writeFileSync } from "fs";
 
 import { Preference, PreferenceValue } from "./preference";
+import { Translatable, Translations } from "../translatable";
 
-// TODO: add preference exports
+export { ActionButtonPosition, ActionButtonPreference, IActionButtonPreference } from "./action-button-preference";
+export { BooleanPreference, IBooleanPreference } from "./boolean-preference";
+export { MultiSelectPreference, IMultiSelectPreference } from "./multi-select-preference";
+export { INumberPreference, NumberPreference } from "./number-preference";
+export { IOptionalMultiSelectPreference, OptionalMultiSelectPreference } from "./optional-multi-select-preference";
+export { IOptionalNumberPreference, OptionalNumberPreference } from "./optional-number-preference";
+export { IOptionalSingleSelectPreference, OptionalSingleSelectPreference } from "./optional-single-select-preference";
+export { IOptionalStringPreference, OptionalStringPreference } from "./optional-string-preference";
+export { Preference, PreferenceType, PreferenceValue } from "./preference";
+export { SelectOption } from "./select-option";
+export { ISingleSelectPreference, SingleSelectPreference } from "./single-select-preference";
+export { SortedListPreference, ISortedListPreference } from "./sorted-list-preference";
+export { IStringPreference, StringPreference } from "./string-preference";
 
-export class ModulePreferencesBuilder {
-	public preferences: Preference<PreferenceValue>[];
+export const EMPTY_PREFERENCE_SLOT = null;
 
-	constructor () {
-		this.preferences = [];
+export class PreferenceGroup extends Translatable {
+	constructor (
+		public preferenceRows: (Preference<PreferenceValue> | null)[][] = [],
+		translations: Translations = {}
+	) {
+		super(translations);
 	}
 
-	public addPreference (...preference: Preference<PreferenceValue>[]): ModulePreferencesBuilder {
-		this.preferences = this.preferences.concat(preference);
+	// Minimum sizes:
+	// xs: col-12 | 1 per row
+	// sm: col-6  | 2 per row
+	// md: col-4  | 3 per row
+	// lg: col-3  | 4 per row
+
+	public addPreferenceRow (preferences: (Preference<PreferenceValue> | null)[]): this;
+	public addPreferenceRow (...preferences: (Preference<PreferenceValue> | null)[]): this;
+	public addPreferenceRow (
+		preferences: (Preference<PreferenceValue> | null)[] | Preference<PreferenceValue> | null,
+		...restPreferences: (Preference<PreferenceValue> | null)[]
+	): this {
+		if (Array.isArray(preferences)) {
+			// The first argument is an array, treat it as a single row
+			this.preferenceRows.push(preferences);
+		} else {
+			// The first argument is not an array, treat all arguments as a row
+			this.preferenceRows.push([preferences, ...restPreferences]);
+		}
+
+		return this;
+	}
+}
+
+export class ModulePreferencesBuilder {
+	public preferenceGroups: PreferenceGroup[];
+
+	constructor () {
+		this.preferenceGroups = [];
+	}
+
+	public addPreferenceGroup (...preferenceGroup: PreferenceGroup[]): ModulePreferencesBuilder {
+		this.preferenceGroups = this.preferenceGroups.concat(preferenceGroup);
 		return this;
 	}
 
 	public generateJSON (outputPath: string = "sm-module-preferences.json"): void {
-		writeFileSync(outputPath, JSON.stringify(this.preferences, (key, value) => {
+		writeFileSync(outputPath, JSON.stringify(this.preferenceGroups, (key, value) => {
 			const ignoringKeys = ["currentValue", "currentlyDisabled"];
 			if (ignoringKeys.includes(key))
 				return undefined;
