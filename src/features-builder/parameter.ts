@@ -1,21 +1,15 @@
-import { LanguageCode } from "../languages";
 import { ParameterValue } from "./parameter-value";
-import { Translations } from "./translations";
+import { Translatable, Translations } from "../translatable";
 
-export class Parameter {
+export class Parameter extends Translatable {
 	constructor (
 		public identifier: string,
 		public optional: boolean = false,
 		public autoSort: boolean = false,
 		public allowedValues: ParameterValue[] = [],
-		public translations: Translations = {}
-	) { }
-
-	public addTranslation (name: string, description: string | null, languageCodes: LanguageCode[]): Parameter {
-		for (const languageCode of languageCodes)
-			this.translations[languageCode] = { name, description };
-
-		return this;
+		translations: Translations = {}
+	) {
+		super(translations);
 	}
 
 	public addAllowedValue (...allowedValue: ParameterValue[]): Parameter {

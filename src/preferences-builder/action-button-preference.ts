@@ -1,5 +1,5 @@
 import { LanguageCode } from "../languages";
-import { Translations } from "../features-builder";
+import { Translations } from "../translatable";
 import { Preference, PreferenceType, PreferenceValue } from "./preference";
 
 export enum ActionButtonPosition {
@@ -11,6 +11,19 @@ export enum ActionButtonPosition {
 	TOP_CENTER = "TOP_CENTER",
 	TOP_LEFT = "TOP_LEFT",
 	TOP_RIGHT = "TOP_RIGHT"
+}
+
+export interface IActionButtonPreference {
+	identifier: string;
+	buttonIcon?: string;
+	buttonText?: string;
+	defaultLanguage?: LanguageCode;
+	dynamicButtonTextAndIcon?: boolean;
+	dynamicDisable?: boolean;
+	dynamicLabel?: boolean;
+	label?: string;
+	position?: ActionButtonPosition;
+	translations?: Translations;
 }
 
 export class ActionButtonPreference<T extends PreferenceValue> extends Preference<T | null> {
@@ -50,5 +63,20 @@ export class ActionButtonPreference<T extends PreferenceValue> extends Preferenc
 	public useDynamicButtonTextAndIcon (isDynamic: boolean = true): this {
 		this.dynamicButtonTextAndIcon = isDynamic;
 		return this;
+	}
+
+	public static create<T extends PreferenceValue> (preference: IActionButtonPreference): ActionButtonPreference<T> {
+		return new ActionButtonPreference<T>(
+			preference.identifier,
+			preference.buttonText || "",
+			preference.label || null,
+			preference.buttonIcon || null,
+			preference.position || ActionButtonPosition.BOTTOM_CENTER,
+			preference.defaultLanguage || LanguageCode.EN_US,
+			preference.translations || {}
+		)
+			.useDynamicDisable(preference.dynamicDisable || false)
+			.useDynamicLabel(preference.dynamicLabel || false)
+			.useDynamicButtonTextAndIcon(preference.dynamicButtonTextAndIcon || false);
 	}
 }

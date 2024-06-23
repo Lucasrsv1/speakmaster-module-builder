@@ -1,20 +1,15 @@
 import { LanguageCode } from "../languages";
 import { Parameter } from "./parameter";
-import { Translations } from "./translations";
+import { Translatable, Translations } from "../translatable";
 
-export class Feature {
+export class Feature extends Translatable {
 	constructor (
 		public identifier: string,
-		public defaultLanguage: LanguageCode,
+		public defaultLanguage: LanguageCode = LanguageCode.EN_US,
 		public parameters: Parameter[] = [],
-		public translations: Translations = {}
-	) { }
-
-	public addTranslation (name: string, description: string | null, languageCodes: LanguageCode[]): Feature {
-		for (const languageCode of languageCodes)
-			this.translations[languageCode] = { name, description };
-
-		return this;
+		translations: Translations = {}
+	) {
+		super(translations);
 	}
 
 	public addParameter (...parameter: Parameter[]): Feature {

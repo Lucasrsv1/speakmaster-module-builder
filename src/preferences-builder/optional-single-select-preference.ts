@@ -1,7 +1,18 @@
 import { LanguageCode } from "../languages";
 import { SelectOption } from "./select-option";
-import { Translations } from "../features-builder";
+import { Translations } from "../translatable";
 import { Preference, PreferenceType, PreferenceValue } from "./preference";
+
+export interface IOptionalSingleSelectPreference<T extends PreferenceValue> {
+	identifier: string;
+	defaultLanguage?: LanguageCode;
+	defaultValue?: T | null;
+	dynamicDisable?: boolean;
+	dynamicOptions?: boolean;
+	dynamicValue?: boolean;
+	options?: Array<SelectOption<T> | T>;
+	translations?: Translations;
+}
 
 export class OptionalSingleSelectPreference<T extends PreferenceValue> extends Preference<T | null> {
 	public readonly type = PreferenceType.SINGLE_SELECT;
@@ -29,5 +40,18 @@ export class OptionalSingleSelectPreference<T extends PreferenceValue> extends P
 	public useDynamicOptions (isDynamic: boolean = true): this {
 		this.dynamicOptions = isDynamic;
 		return this;
+	}
+
+	public static create<T extends PreferenceValue> (preference: IOptionalSingleSelectPreference<T>): OptionalSingleSelectPreference<T> {
+		return new OptionalSingleSelectPreference<T>(
+			preference.identifier,
+			preference.defaultValue || null,
+			preference.options || [],
+			preference.defaultLanguage || LanguageCode.EN_US,
+			preference.translations || {}
+		)
+			.useDynamicDisable(preference.dynamicDisable || false)
+			.useDynamicValue(preference.dynamicValue || false)
+			.useDynamicOptions(preference.dynamicOptions || false);
 	}
 }

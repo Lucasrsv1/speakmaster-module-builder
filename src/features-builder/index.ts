@@ -5,7 +5,6 @@ import { Feature } from "./feature";
 export { Feature } from "./feature";
 export { Parameter } from "./parameter";
 export { ParameterValue } from "./parameter-value";
-export { Translations } from "./translations";
 
 export class ModuleFeaturesBuilder {
 	public features: Feature[];

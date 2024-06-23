@@ -1,7 +1,17 @@
 import { LanguageCode } from "../languages";
 import { SelectOption } from "./select-option";
-import { Translations } from "../features-builder";
+import { Translations } from "../translatable";
 import { Preference, PreferenceType, PreferenceValue } from "./preference";
+
+export interface ISortedListPreference<T extends PreferenceValue> {
+	identifier: string;
+	defaultLanguage?: LanguageCode;
+	dynamicDisable?: boolean;
+	dynamicList?: boolean;
+	dynamicValue?: boolean;
+	list?: Array<SelectOption<T> | T>;
+	translations?: Translations;
+}
 
 export class SortedListPreference<T extends PreferenceValue> extends Preference<T[]> {
 	public readonly type = PreferenceType.SORTED_LIST;
@@ -30,5 +40,17 @@ export class SortedListPreference<T extends PreferenceValue> extends Preference<
 	public useDynamicList (isDynamic: boolean = true): this {
 		this.dynamicList = isDynamic;
 		return this;
+	}
+
+	public static create<T extends PreferenceValue> (preference: ISortedListPreference<T>): SortedListPreference<T> {
+		return new SortedListPreference<T>(
+			preference.identifier,
+			preference.list || [],
+			preference.defaultLanguage || LanguageCode.EN_US,
+			preference.translations || {}
+		)
+			.useDynamicDisable(preference.dynamicDisable || false)
+			.useDynamicValue(preference.dynamicValue || false)
+			.useDynamicList(preference.dynamicList || false);
 	}
 }

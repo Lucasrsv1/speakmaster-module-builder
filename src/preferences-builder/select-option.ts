@@ -1,17 +1,11 @@
-import { LanguageCode } from "../languages";
 import { PreferenceValue } from "./preference";
-import { Translations } from "../features-builder";
+import { Translatable, Translations } from "../translatable";
 
-export class SelectOption<T extends PreferenceValue> {
+export class SelectOption<T extends PreferenceValue> extends Translatable {
 	constructor (
 		public value: T,
-		public translations: Translations = {}
-	) { }
-
-	public addTranslation (name: string, description: string | null, languageCodes: LanguageCode[]): this {
-		for (const languageCode of languageCodes)
-			this.translations[languageCode] = { name, description };
-
-		return this;
+		translations: Translations = {}
+	) {
+		super(translations);
 	}
 }

@@ -1,7 +1,7 @@
 import { EventEmitter } from "events";
 
 import { LanguageCode } from "../languages";
-import { Translations } from "../features-builder";
+import { Translatable, Translations } from "../translatable";
 
 export enum PreferenceType {
 	ACTION_BUTTON = "ACTION_BUTTON",
@@ -16,7 +16,7 @@ export enum PreferenceType {
 
 export type PreferenceValue = number | string | boolean | object | number[] | string[] | boolean[] | object[] | null;
 
-export abstract class Preference<T extends PreferenceValue> {
+export abstract class Preference<T extends PreferenceValue> extends Translatable {
 	public readonly abstract type: PreferenceType;
 
 	public dynamicValue: boolean = false;
@@ -30,9 +30,10 @@ export abstract class Preference<T extends PreferenceValue> {
 		public identifier: string,
 		public defaultValue: T,
 		public defaultLanguage: LanguageCode = LanguageCode.EN_US,
-		public translations: Translations = {},
+		translations: Translations = {},
 		public isOptional: boolean = false
 	) {
+		super(translations);
 		this.currentValue = defaultValue;
 		this.currentlyDisabled = false;
 		this.#valueChanges = new EventEmitter();
@@ -75,13 +76,6 @@ export abstract class Preference<T extends PreferenceValue> {
 
 	public setDefaultLanguage (defaultLanguage: LanguageCode): this {
 		this.defaultLanguage = defaultLanguage;
-		return this;
-	}
-
-	public addTranslation (name: string, description: string | null, languageCodes: LanguageCode[]): this {
-		for (const languageCode of languageCodes)
-			this.translations[languageCode] = { name, description };
-
 		return this;
 	}
 }
