@@ -17,6 +17,17 @@ export { ISingleSelectPreference, SingleSelectPreference } from "./single-select
 export { SortedListPreference, ISortedListPreference } from "./sorted-list-preference";
 export { IStringPreference, StringPreference } from "./string-preference";
 
+const keysToIgnore = [
+	"currentButtonIcon",
+	"currentButtonText",
+	"currentLabel",
+	"currentList",
+	"currentlyDisabled",
+	"currentOptions",
+	"currentValue",
+	"changes"
+];
+
 export const EMPTY_PREFERENCE_SLOT = null;
 
 export class PreferenceGroup extends Translatable {
@@ -29,9 +40,9 @@ export class PreferenceGroup extends Translatable {
 
 	// Minimum sizes:
 	// xs: col-12 | 1 per row
-	// sm: col-6  | 2 per row
-	// md: col-4  | 3 per row
-	// lg: col-3  | 4 per row
+	// md: col-6  | 2 per row
+	// lg: col-4  | 3 per row
+	// xl: col-3  | 4 per row
 
 	public addPreferenceRow (preferences: (Preference<PreferenceValue> | null)[]): this;
 	public addPreferenceRow (...preferences: (Preference<PreferenceValue> | null)[]): this;
@@ -65,8 +76,24 @@ export class ModulePreferencesBuilder {
 
 	public generateJSON (outputPath: string = "sm-module-preferences.json"): void {
 		writeFileSync(outputPath, JSON.stringify(this.preferenceGroups, (key, value) => {
-			const ignoringKeys = ["currentValue", "currentlyDisabled"];
-			if (ignoringKeys.includes(key))
+			if (value && typeof value === "object" && Object.keys(value).some(k => keysToIgnore.includes(k))) {
+				const replacement = { ...value };
+
+				if ("currentButtonIcon" in replacement)
+					replacement.buttonIcon = replacement.currentButtonIcon;
+				if ("currentButtonText" in replacement)
+					replacement.buttonText = replacement.currentButtonText;
+				if ("currentLabel" in replacement)
+					replacement.label = replacement.currentLabel;
+				if ("currentList" in replacement)
+					replacement.list = replacement.currentList;
+				if ("currentOptions" in replacement)
+					replacement.options = replacement.currentOptions;
+
+				return replacement;
+			}
+
+			if (keysToIgnore.includes(key))
 				return undefined;
 
 			return value;

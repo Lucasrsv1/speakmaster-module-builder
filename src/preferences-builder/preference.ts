@@ -3,6 +3,8 @@ import { EventEmitter } from "events";
 import { LanguageCode } from "../languages";
 import { Translatable, Translations } from "../translatable";
 
+import { SelectOption } from "./select-option";
+
 export enum PreferenceType {
 	ACTION_BUTTON = "ACTION_BUTTON",
 	BOOLEAN = "BOOLEAN",
@@ -14,17 +16,28 @@ export enum PreferenceType {
 	STRING = "STRING"
 }
 
+export interface IPreferenceChanges<T extends PreferenceValue> {
+	any: [];
+	buttonIcon: [string | null];
+	buttonText: [string];
+	isDisabled: [boolean];
+	label: [string | null];
+	list: [SelectOption<PreferenceValue>[]];
+	options: [SelectOption<PreferenceValue>[]];
+	value: [T];
+}
+
 export type PreferenceValue = number | string | boolean | object | number[] | string[] | boolean[] | object[] | null;
 
 export abstract class Preference<T extends PreferenceValue> extends Translatable {
 	public readonly abstract type: PreferenceType;
+	public readonly changes: EventEmitter<IPreferenceChanges<T>>;
 
 	public dynamicValue: boolean = false;
 	public dynamicDisable: boolean = false;
 
 	protected currentValue: T;
 	protected currentlyDisabled: boolean;
-	readonly #valueChanges: EventEmitter;
 
 	constructor (
 		public identifier: string,
@@ -36,7 +49,7 @@ export abstract class Preference<T extends PreferenceValue> extends Translatable
 		super(translations);
 		this.currentValue = defaultValue;
 		this.currentlyDisabled = false;
-		this.#valueChanges = new EventEmitter();
+		this.changes = new EventEmitter();
 	}
 
 	public get value (): T {
@@ -45,7 +58,8 @@ export abstract class Preference<T extends PreferenceValue> extends Translatable
 
 	public set value (newValue: T) {
 		this.currentValue = newValue;
-		this.#valueChanges.emit("change", this.currentValue);
+		this.changes.emit("value", this.currentValue);
+		this.changes.emit("any");
 	}
 
 	public get isDisabled (): boolean {
@@ -54,6 +68,8 @@ export abstract class Preference<T extends PreferenceValue> extends Translatable
 
 	public set isDisabled (newValue: boolean) {
 		this.currentlyDisabled = newValue;
+		this.changes.emit("isDisabled", this.currentlyDisabled);
+		this.changes.emit("any");
 	}
 
 	public useDynamicValue (isDynamic: boolean = true): this {
@@ -64,14 +80,6 @@ export abstract class Preference<T extends PreferenceValue> extends Translatable
 	public useDynamicDisable (isDynamic: boolean = true): this {
 		this.dynamicDisable = isDynamic;
 		return this;
-	}
-
-	public addChangeListener (listener: (value: T) => void): void {
-		this.#valueChanges.on("change", listener);
-	}
-
-	public removeChangeListener (listener: (value: T) => void): void {
-		this.#valueChanges.removeListener("change", listener);
 	}
 
 	public setDefaultLanguage (defaultLanguage: LanguageCode): this {

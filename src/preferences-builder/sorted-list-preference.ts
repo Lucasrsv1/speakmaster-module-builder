@@ -17,7 +17,7 @@ export class SortedListPreference<T extends PreferenceValue> extends Preference<
 	public readonly type = PreferenceType.SORTED_LIST;
 
 	public dynamicList: boolean = false;
-	public list: SelectOption<T>[];
+	public currentList: SelectOption<T>[];
 
 	constructor (
 		identifier: string,
@@ -34,7 +34,17 @@ export class SortedListPreference<T extends PreferenceValue> extends Preference<
 			listOptions = (list as T[]).map(option => new SelectOption(option));
 
 		super(identifier, listOptions.map(o => o.value), defaultLanguage, translations);
-		this.list = listOptions;
+		this.currentList = listOptions;
+	}
+
+	public get list (): SelectOption<T>[] {
+		return this.currentList;
+	}
+
+	public set list (newList: SelectOption<T>[]) {
+		this.currentList = newList;
+		this.changes.emit("list", this.currentList);
+		this.changes.emit("any");
 	}
 
 	public useDynamicList (isDynamic: boolean = true): this {

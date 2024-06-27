@@ -18,7 +18,7 @@ export class SingleSelectPreference<T extends PreferenceValue> extends Preferenc
 	public readonly type = PreferenceType.SINGLE_SELECT;
 
 	public dynamicOptions: boolean = false;
-	public options: SelectOption<T>[];
+	public currentOptions: SelectOption<T>[];
 
 	constructor (
 		identifier: string,
@@ -30,11 +30,21 @@ export class SingleSelectPreference<T extends PreferenceValue> extends Preferenc
 		super(identifier, defaultValue, defaultLanguage, translations);
 
 		if (!options.length)
-			this.options = [];
+			this.currentOptions = [];
 		else if (options[0] instanceof SelectOption)
-			this.options = options as SelectOption<T>[];
+			this.currentOptions = options as SelectOption<T>[];
 		else
-			this.options = (options as T[]).map(option => new SelectOption(option));
+			this.currentOptions = (options as T[]).map(option => new SelectOption(option));
+	}
+
+	public get options (): SelectOption<T>[] {
+		return this.currentOptions;
+	}
+
+	public set options (newOptions: SelectOption<T>[]) {
+		this.currentOptions = newOptions;
+		this.changes.emit("options", this.currentOptions);
+		this.changes.emit("any");
 	}
 
 	public useDynamicOptions (isDynamic: boolean = true): this {

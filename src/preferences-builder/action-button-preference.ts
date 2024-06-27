@@ -32,17 +32,54 @@ export class ActionButtonPreference<T extends PreferenceValue> extends Preferenc
 	public dynamicLabel: boolean = false;
 	public dynamicButtonTextAndIcon: boolean = false;
 
+	protected currentButtonIcon: string | null;
+	protected currentButtonText: string;
+	protected currentLabel: string | null;
+
 	constructor (
 		identifier: string,
-		public buttonText: string = "",
-		public label: string | null = null,
-		public buttonIcon: string | null = null,
+		buttonText: string = "",
+		label: string | null = null,
+		buttonIcon: string | null = null,
 		public position: ActionButtonPosition = ActionButtonPosition.BOTTOM_CENTER,
 		defaultLanguage: LanguageCode = LanguageCode.EN_US,
 		translations: Translations = {}
 	) {
 		super(identifier, null, defaultLanguage, translations);
+		this.currentButtonIcon = buttonIcon;
+		this.currentButtonText = buttonText;
+		this.currentLabel = label;
 		this.useDynamicValue();
+	}
+
+	public get buttonIcon (): string | null {
+		return this.currentButtonIcon;
+	}
+
+	public set buttonIcon (newValue: string | null) {
+		this.currentButtonIcon = newValue;
+		this.changes.emit("buttonIcon", this.currentButtonIcon);
+		this.changes.emit("any");
+	}
+
+	public get buttonText (): string {
+		return this.currentButtonText;
+	}
+
+	public set buttonText (newValue: string) {
+		this.currentButtonText = newValue;
+		this.changes.emit("buttonText", this.currentButtonText);
+		this.changes.emit("any");
+	}
+
+	public get label (): string | null {
+		return this.currentLabel;
+	}
+
+	public set label (newValue: string | null) {
+		this.currentLabel = newValue;
+		this.changes.emit("label", this.currentLabel);
+		this.changes.emit("any");
 	}
 
 	public setPosition (position: ActionButtonPosition): this {
