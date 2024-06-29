@@ -16,6 +16,17 @@ export enum PreferenceType {
 	STRING = "STRING"
 }
 
+export interface IPreferenceUpdate<T extends PreferenceValue> {
+	identifier: string;
+	isDisabled: boolean;
+	value: T;
+	buttonIcon?: string | null;
+	buttonText?: string;
+	label?: string | null;
+	list?: SelectOption<T>[];
+	options?: SelectOption<T>[];
+}
+
 export interface IPreferenceChanges<T extends PreferenceValue> {
 	any: [];
 	buttonIcon: [string | null];

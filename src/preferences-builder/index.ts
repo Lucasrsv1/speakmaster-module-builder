@@ -11,7 +11,7 @@ export { IOptionalMultiSelectPreference, OptionalMultiSelectPreference } from ".
 export { IOptionalNumberPreference, OptionalNumberPreference } from "./optional-number-preference";
 export { IOptionalSingleSelectPreference, OptionalSingleSelectPreference } from "./optional-single-select-preference";
 export { IOptionalStringPreference, OptionalStringPreference } from "./optional-string-preference";
-export { Preference, PreferenceType, PreferenceValue } from "./preference";
+export { IPreferenceChanges, IPreferenceUpdate, Preference, PreferenceType, PreferenceValue } from "./preference";
 export { SelectOption } from "./select-option";
 export { ISingleSelectPreference, SingleSelectPreference } from "./single-select-preference";
 export { SortedListPreference, ISortedListPreference } from "./sorted-list-preference";
