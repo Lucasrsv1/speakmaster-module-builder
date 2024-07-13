@@ -3,7 +3,7 @@ import { writeFileSync } from "fs";
 import { Preference, PreferenceValue } from "./preference";
 import { Translatable, Translations } from "../translatable";
 
-export { ActionButtonPosition, ActionButtonPreference, IActionButtonPreference } from "./action-button-preference";
+export { ActionButtonColor, ActionButtonPosition, ActionButtonPreference, IActionButtonPreference } from "./action-button-preference";
 export { BooleanPreference, IBooleanPreference } from "./boolean-preference";
 export { MultiSelectPreference, IMultiSelectPreference } from "./multi-select-preference";
 export { INumberPreference, NumberPreference } from "./number-preference";

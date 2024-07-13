@@ -1,11 +1,10 @@
 {
 	"name": "speakmaster-module-builder",
-	"version": "0.4.0",
+	"version": "0.4.1",
 	"description": "Ferramenta de definição das configurações de módulos do SpeakMaster, como preferências, funcionalidades disponíveis e comandos padrões",
 	"main": "index.js",
 	"module": "index.mjs",
 	"types": "index.d.ts",
-	"preferDev": true,
 	"author": "Lucas Rassilan Vilanova",
 	"repository": {
 		"url": "https://github.com/Lucasrsv1/speakmaster-module-builder"

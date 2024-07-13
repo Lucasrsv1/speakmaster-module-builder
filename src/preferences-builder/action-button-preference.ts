@@ -2,6 +2,26 @@ import { LanguageCode } from "../languages";
 import { Translations } from "../translatable";
 import { Preference, PreferenceType, PreferenceValue } from "./preference";
 
+export enum ActionButtonColor {
+	PRIMARY = "btn-primary",
+	SECONDARY = "btn-secondary",
+	SUCCESS = "btn-success",
+	WARNING = "btn-warning",
+	DANGER = "btn-danger",
+	INFO = "btn-info",
+	LIGHT = "btn-light",
+	DARK = "btn-dark",
+	LINK = "btn-link",
+	OUTLINE_PRIMARY = "btn-outline-primary",
+	OUTLINE_SECONDARY = "btn-outline-secondary",
+	OUTLINE_SUCCESS = "btn-outline-success",
+	OUTLINE_WARNING = "btn-outline-warning",
+	OUTLINE_DANGER = "btn-outline-danger",
+	OUTLINE_INFO = "btn-outline-info",
+	OUTLINE_LIGHT = "btn-outline-light",
+	OUTLINE_DARK = "btn-outline-dark"
+}
+
 export enum ActionButtonPosition {
 	BOTTOM_CENTER = "BOTTOM_CENTER",
 	BOTTOM_LEFT = "BOTTOM_LEFT",
@@ -22,6 +42,7 @@ export interface IActionButtonPreference {
 	dynamicDisable?: boolean;
 	dynamicLabel?: boolean;
 	label?: string;
+	color?: ActionButtonColor;
 	position?: ActionButtonPosition;
 	translations?: Translations;
 }
@@ -41,6 +62,7 @@ export class ActionButtonPreference<T extends PreferenceValue> extends Preferenc
 		buttonText: string = "",
 		label: string | null = null,
 		buttonIcon: string | null = null,
+		public color: ActionButtonColor = ActionButtonColor.INFO,
 		public position: ActionButtonPosition = ActionButtonPosition.BOTTOM_CENTER,
 		defaultLanguage: LanguageCode = LanguageCode.EN_US,
 		translations: Translations = {}
@@ -82,6 +104,11 @@ export class ActionButtonPreference<T extends PreferenceValue> extends Preferenc
 		this.changes.emit("any");
 	}
 
+	public setColor (color: ActionButtonColor): this {
+		this.color = color;
+		return this;
+	}
+
 	public setPosition (position: ActionButtonPosition): this {
 		this.position = position;
 		return this;
@@ -108,6 +135,7 @@ export class ActionButtonPreference<T extends PreferenceValue> extends Preferenc
 			preference.buttonText || "",
 			preference.label || null,
 			preference.buttonIcon || null,
+			preference.color || ActionButtonColor.INFO,
 			preference.position || ActionButtonPosition.BOTTOM_CENTER,
 			preference.defaultLanguage || LanguageCode.EN_US,
 			preference.translations || {}
